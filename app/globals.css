@@ -7,17 +7,12 @@
   --border: rgba(0, 0, 0, 0.06);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --muted: rgba(255, 255, 255, 0.6);
+    --border: rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -33,80 +28,11 @@ html[data-theme="dark"] {
 html[data-theme="light"] {
   --background: #ffffff;
   --foreground: #171717;
+  --muted: rgba(0, 0, 0, 0.6);
+  --border: rgba(0, 0, 0, 0.06);
 }
 
-/* Theme toggle switch styles (accessible) */
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 24px;
-}
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.slider {
-  position: absolute;
-  cursor: pointer;
-  inset: 0;
-  background: #cfcfcf;
-  transition: background 0.2s ease;
-  border-radius: 999px;
-}
-.slider::before {
-  content: "";
-  position: absolute;
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  top: 3px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease;
-}
-.switch input:checked + .slider {
-  background: #4f46e5;
-}
-.switch input:checked + .slider::before {
-  transform: translateX(20px);
-}
-
-.switch input:focus-visible + .slider {
-  outline: 2px solid #93c5fd;
-  outline-offset: 2px;
-}
-
-/* Circular theme button */
-.theme-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 9999px;
-  background: transparent;
-  border: 1px solid transparent;
-  cursor: pointer;
-}
-.theme-button:focus {
-  outline: 2px solid #93c5fd;
-  outline-offset: 2px;
-}
-.theme-icon {
-  width: 18px;
-  height: 18px;
-  fill: var(--foreground);
-}
-
-/* Theme change overlay animation: show current background then fade out to reveal new theme */
+/* Theme change overlay animation (kept minimal) */
 html.theme-fade::before {
   content: "";
   position: fixed;
@@ -126,41 +52,7 @@ html.theme-fade::before {
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
+/* minimal body transitions */
 body {
   transition: background 180ms ease, color 180ms ease;
-}
-html,
-body,
-#__next {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.app-main {
-  flex: 1 0 auto;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.site-footer {
-  flex-shrink: 0;
-}
-
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-  color: var(--muted);
-  border-top: none;
 }

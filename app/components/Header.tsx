@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 export default function Header() {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  // Fontos: várjuk meg, amíg a komponens ténylegesen a böngészőben van (hydration után)
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -22,7 +21,6 @@ export default function Header() {
   const isDark = currentTheme === "dark";
 
   function toggleTheme() {
-    // capture current background so user sees a smooth fade
     try {
       const computed =
         getComputedStyle(document.documentElement).getPropertyValue(
@@ -33,16 +31,11 @@ export default function Header() {
         computed.trim() || "#fff"
       );
       document.documentElement.classList.add("theme-fade");
-    } catch {
-      // ignore
-    }
+    } catch {}
 
-    // wait for overlay animation to start, then switch theme
     const finish = () => {
       setTheme(isDark ? "light" : "dark");
-      // remove class after animation completes
       try {
-        // remove after a delay slightly longer than animation
         setTimeout(
           () => document.documentElement.classList.remove("theme-fade"),
           420
@@ -50,7 +43,6 @@ export default function Header() {
       } catch {}
     };
 
-    // dispatch immediately for responsiveness; theme switch will follow
     finish();
   }
 
@@ -71,21 +63,30 @@ export default function Header() {
         <nav className="hidden md:flex items-center gap-4 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <button
             onClick={() => router.push("/algorithms")}
-            style={{ background: "none", border: "none", cursor: "pointer" }}
+            className="group relative overflow-hidden px-1 py-1 text-sm text-[color:var(--foreground)] focus:outline-none cursor-pointer"
           >
-            Algorithms
+            <span className="relative z-10 transition-transform duration-150 group-hover:-translate-y-0.5">
+              Algorithms
+            </span>
+            <span className="absolute left-0 bottom-0 h-[2px] bg-[color:var(--foreground)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left w-full" />
           </button>
           <button
             onClick={() => router.push("/profil")}
-            style={{ background: "none", border: "none", cursor: "pointer" }}
+            className="group relative overflow-hidden px-1 py-1 text-sm text-[color:var(--foreground)] focus:outline-none cursor-pointer"
           >
-            Profil
+            <span className="relative z-10 transition-transform duration-150 group-hover:-translate-y-0.5">
+              Profil
+            </span>
+            <span className="absolute left-0 bottom-0 h-[2px] bg-[color:var(--foreground)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left w-full" />
           </button>
           <button
             onClick={() => router.push("/courses")}
-            style={{ background: "none", border: "none", cursor: "pointer" }}
+            className="group relative overflow-hidden px-1 py-1 text-sm text-[color:var(--foreground)] focus:outline-none cursor-pointer"
           >
-            Courses
+            <span className="relative z-10 transition-transform duration-150 group-hover:-translate-y-0.5">
+              Courses
+            </span>
+            <span className="absolute left-0 bottom-0 h-[2px] bg-[color:var(--foreground)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left w-full" />
           </button>
         </nav>
 

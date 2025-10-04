@@ -22,11 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <ThemeProviderClient>
           <Header />
-          <main className="app-main">{children}</main>
+          <main className="flex-1 max-w-6xl mx-auto px-6 py-8">{children}</main>
           <Footer />
         </ThemeProviderClient>
       </body>

@@ -106,6 +106,26 @@ html[data-theme="light"] {
   fill: var(--foreground);
 }
 
+/* Theme change overlay animation: show current background then fade out to reveal new theme */
+html.theme-fade::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--theme-overlay-color, var(--background));
+  z-index: 9999;
+  pointer-events: none;
+  animation: themeFade 380ms ease-out forwards;
+}
+
+@keyframes themeFade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

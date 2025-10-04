@@ -20,7 +20,36 @@ export default function Header() {
   const isDark = currentTheme === "dark";
 
   function toggleTheme() {
-    setTheme(isDark ? "light" : "dark");
+    // capture current background so user sees a smooth fade
+    try {
+      const computed =
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--background"
+        ) || getComputedStyle(document.body).backgroundColor;
+      document.documentElement.style.setProperty(
+        "--theme-overlay-color",
+        computed.trim() || "#fff"
+      );
+      document.documentElement.classList.add("theme-fade");
+    } catch {
+      // ignore
+    }
+
+    // wait for overlay animation to start, then switch theme
+    const finish = () => {
+      setTheme(isDark ? "light" : "dark");
+      // remove class after animation completes
+      try {
+        // remove after a delay slightly longer than animation
+        setTimeout(
+          () => document.documentElement.classList.remove("theme-fade"),
+          420
+        );
+      } catch {}
+    };
+
+    // dispatch immediately for responsiveness; theme switch will follow
+    finish();
   }
 
   return (

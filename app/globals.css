@@ -56,3 +56,19 @@ html.theme-fade::before {
 body {
   transition: background 180ms ease, color 180ms ease;
 }
+
+/* Mobile menu item entrance animation: fade in and slide up slightly */
+@keyframes mobileItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-mobile-item {
+  animation: mobileItemIn 220ms ease forwards;
+}

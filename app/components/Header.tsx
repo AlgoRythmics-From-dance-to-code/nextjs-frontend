@@ -7,20 +7,18 @@ import { useRouter } from "next/navigation";
 export default function Header() {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  // Fontos: várjuk meg, amíg a komponens ténylegesen a böngészőben van (hydration után)
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const router = useRouter();
 
-  if (!mounted) return null; // amíg a téma nem inicializálódott, ne rendereljünk
+  if (!mounted) return null;
 
   const currentTheme = theme === "system" ? systemTheme : theme;
   const isDark = currentTheme === "dark";
 
   function toggleTheme() {
-    // capture current background so user sees a smooth fade
     try {
       const computed =
         getComputedStyle(document.documentElement).getPropertyValue(
@@ -31,16 +29,11 @@ export default function Header() {
         computed.trim() || "#fff"
       );
       document.documentElement.classList.add("theme-fade");
-    } catch {
-      // ignore
-    }
+    } catch {}
 
-    // wait for overlay animation to start, then switch theme
     const finish = () => {
       setTheme(isDark ? "light" : "dark");
-      // remove class after animation completes
       try {
-        // remove after a delay slightly longer than animation
         setTimeout(
           () => document.documentElement.classList.remove("theme-fade"),
           420
@@ -48,78 +41,82 @@ export default function Header() {
       } catch {}
     };
 
-    // dispatch immediately for responsiveness; theme switch will follow
     finish();
   }
 
   return (
-    <header
-      className="site-header"
-      style={{
-        padding: "1rem 2rem",
-        borderBottom: "1px solid rgba(0,0,0,0.06)",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          maxWidth: 1200,
-          margin: "0 auto",
-        }}
-      >
-        <div style={{ fontWeight: 700 }}>AlgoRythmics</div>
-        <nav style={{ display: "flex", alignItems: "center", gap: 16 }}>
+    <header className="site-header border-b border-[color:var(--border)] py-4 px-6">
+      <div className="flex items-center justify-between max-w-6xl mx-auto">
+        <button
+          onClick={() => router.push("/")}
+          className="font-bold text-lg transform-gpu transition-transform duration-150 hover:scale-105 focus:outline-none cursor-pointer"
+          aria-label="Go to homepage"
+        >
+          AlgoRythmics
+        </button>
+        <nav className="flex items-center gap-4">
           <button
             onClick={() => router.push("/algorithms")}
-            style={{ background: "none", border: "none", cursor: "pointer" }}
+            className="group relative overflow-hidden px-1 py-1 text-sm text-[color:var(--foreground)] focus:outline-none cursor-pointer"
           >
-            Algorithms
+            <span className="relative z-10 transition-transform duration-150 group-hover:-translate-y-0.5">
+              Algorithms
+            </span>
+            <span className="absolute left-0 bottom-0 h-[2px] bg-[color:var(--foreground)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left w-full" />
           </button>
           <button
             onClick={() => router.push("/profil")}
-            style={{ background: "none", border: "none", cursor: "pointer" }}
+            className="group relative overflow-hidden px-1 py-1 text-sm text-[color:var(--foreground)] focus:outline-none cursor-pointer"
           >
-            Profil
+            <span className="relative z-10 transition-transform duration-150 group-hover:-translate-y-0.5">
+              Profil
+            </span>
+            <span className="absolute left-0 bottom-0 h-[2px] bg-[color:var(--foreground)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left w-full" />
           </button>
           <button
             onClick={() => router.push("/courses")}
-            style={{ background: "none", border: "none", cursor: "pointer" }}
+            className="group relative overflow-hidden px-1 py-1 text-sm text-[color:var(--foreground)] focus:outline-none cursor-pointer"
           >
-            Courses
+            <span className="relative z-10 transition-transform duration-150 group-hover:-translate-y-0.5">
+              Courses
+            </span>
+            <span className="absolute left-0 bottom-0 h-[2px] bg-[color:var(--foreground)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left w-full" />
           </button>
 
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+          <div className="inline-flex items-center">
             <button
               type="button"
-              className="theme-button"
               onClick={toggleTheme}
               aria-pressed={isDark}
               aria-label={
                 isDark ? "Switch to light theme" : "Switch to dark theme"
               }
               title={isDark ? "Light mode" : "Dark mode"}
+              className="w-9 h-9 rounded-full flex items-center justify-center border border-[color:var(--border)] hover:bg-[color:rgba(0,0,0,0.04)] focus:outline-none cursor-pointer"
             >
               {isDark ? (
-                /* moon */
                 <svg
-                  className="theme-icon"
+                  className="w-5 h-5 text-[color:var(--foreground)]"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden
                 >
-                  <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                  <path
+                    d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                    fill="currentColor"
+                  />
                 </svg>
               ) : (
-                /* sun */
                 <svg
-                  className="theme-icon"
+                  className="w-5 h-5 text-[color:var(--foreground)]"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                   aria-hidden
                 >
-                  <path d="M6.76 4.84l-1.8-1.79L3.17 4.83l1.79 1.79 1.8-1.78zM1 13h3v-2H1v2zm10-9h2V1h-2v3zm7.03 2.05l1.79-1.79-1.79-1.79-1.79 1.79 1.79 1.79zM17.24 19.16l1.79 1.79 1.79-1.79-1.79-1.79-1.79 1.79zM21 11v2h3v-2h-3zM12 6a6 6 0 100 12 6 6 0 000-12zm0 16h2v-3h-2v3zM4.24 19.16l1.79-1.79-1.79-1.79-1.79 1.79 1.79 1.79z" />
+                  <path
+                    d="M6.76 4.84l-1.8-1.79L3.17 4.83l1.79 1.79 1.8-1.78zM1 13h3v-2H1v2zm10-9h2V1h-2v3zm7.03 2.05l1.79-1.79-1.79-1.79-1.79 1.79 1.79 1.79zM17.24 19.16l1.79 1.79 1.79-1.79-1.79-1.79-1.79 1.79zM21 11v2h3v-2h-3zM12 6a6 6 0 100 12 6 6 0 000-12zm0 16h2v-3h-2v3zM4.24 19.16l1.79-1.79-1.79-1.79-1.79 1.79 1.79 1.79z"
+                    fill="currentColor"
+                  />
                 </svg>
               )}
             </button>

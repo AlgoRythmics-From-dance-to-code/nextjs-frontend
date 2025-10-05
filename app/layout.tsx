@@ -1,4 +1,5 @@
 import ThemeProviderClient from "./components/ThemeProviderClient";
+import LocaleProvider from "./i18n/LocaleProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -27,9 +28,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <ThemeProviderClient>
-          <Header />
-          <main className="flex-1 max-w-6xl mx-auto px-6 py-8">{children}</main>
-          <Footer />
+          <LocaleProvider>
+            <Header />
+            <main className="flex-1 max-w-6xl mx-auto px-6 py-8">
+              {children}
+            </main>
+            <Footer />
+          </LocaleProvider>
         </ThemeProviderClient>
         <SpeedInsights />
         <Analytics />

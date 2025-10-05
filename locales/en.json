@@ -1,0 +1,19 @@
+{
+  "brand": "AlgoRythmics",
+  "nav": {
+    "algorithms": "Algorithms",
+    "profil": "Profile",
+    "courses": "Courses"
+  },
+  "aria": {
+    "go_home": "Go to homepage",
+    "toggle_menu": "Toggle menu",
+    "switch_to_light": "Switch to light theme",
+    "switch_to_dark": "Switch to dark theme"
+  },
+  "title": {
+    "light_mode": "Light mode",
+    "dark_mode": "Dark mode"
+  },
+  "footer": "© {year} AlgoRythmics. All rights reserved."
+}

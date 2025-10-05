@@ -1,0 +1,19 @@
+{
+  "brand": "AlgoRythmics",
+  "nav": {
+    "algorithms": "Algoritmusok",
+    "profil": "Profil",
+    "courses": "Tanfolyamok"
+  },
+  "aria": {
+    "go_home": "Ugrás a kezdőlapra",
+    "toggle_menu": "Menü váltása",
+    "switch_to_light": "Váltás világos témára",
+    "switch_to_dark": "Váltás sötét témára"
+  },
+  "title": {
+    "light_mode": "Világos mód",
+    "dark_mode": "Sötét mód"
+  },
+  "footer": "© {year} AlgoRythmics. Minden jog fenntartva."
+}

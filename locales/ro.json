@@ -1,0 +1,19 @@
+{
+  "brand": "AlgoRythmics",
+  "nav": {
+    "algorithms": "Algoritmi",
+    "profil": "Profil",
+    "courses": "Cursuri"
+  },
+  "aria": {
+    "go_home": "Mergi la pagina principală",
+    "toggle_menu": "Comută meniul",
+    "switch_to_light": "Comută la tema deschisă",
+    "switch_to_dark": "Comută la tema închisă"
+  },
+  "title": {
+    "light_mode": "Mod luminos",
+    "dark_mode": "Mod întunecat"
+  },
+  "footer": "© {year} AlgoRythmics. Toate drepturile rezervate."
+}
